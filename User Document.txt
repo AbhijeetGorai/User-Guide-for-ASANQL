@@ -1,0 +1,194 @@
+User Guide for Database Query Language
+
+This guide will help you understand how to perform various operations on the database using our query language. The operations include Create, Read, Update, Delete, Alter, Show, and Find.
+
+1. Create Operations
+
+1.1 Create a Database
+
+To create a new database, use the following query:
+CREATE DATABASE <database_name>
+
+Example:
+CREATE DATABASE employee_db
+
+1.2 Create a table
+
+To create a new table within a database, use the following query:
+USE DATABASE <database_name> CREATE TABLE <table_name> WITH VALUES <value_row>
+
+Example:
+USE DATABASE employee_db CREATE TABLE employees WITH VALUES {"id": 1, "name": "John Doe", "department": "HR"}
+
+2. Read Operations
+
+2.1 Find Records from a table:
+
+To find records from a table, use the following query:
+USE DATABASE <database_name> FIND <field1> AND <field2> AND ... FROM THE TABLE <table_name>
+
+Example:
+USE DATABASE employee_db FIND id AND name AND department FROM THE TABLE employees
+
+To find all the records from the table, use the following query
+USE DATABASE employee_db FIND * FROM THE TABLE employees
+
+2.2 Apply Filters to Records
+
+To apply filters to the records, use the WHERE clause:
+USE DATABASE <database_name> FIND <field1> AND <field2> AND ... FROM THE TABLE <table_name> WHERE <condition>
+
+Example:
+USE DATABASE employee_db FIND id AND name AND department FROM THE TABLE employees WHERE department IS 'HR'
+
+2.3 Do aggregation operations
+
+To apply aggregation operations, use the following query:
+USE DATABASE <database_name> FIND <aggregation_operation> <field_name> FROM THE TABLE <table_name>
+
+Supported Aggregation Operations:
+	-ITS COMBINED: Sum of values.
+	-COUNT THE: Count of values.
+	-MAXIMUM: Maximum value.
+	-MINIMUM: Minimum value.
+	-AVERAGE: Average value.
+	
+Example:
+USE DATABASE employee_db FIND ITS COMBINED salary FROM THE TABLE employees
+
+2.4 Do apply joins in tables
+
+To apply joins in the table, use the following query:
+USE DATABASE <database_name> FIND <field1> AND <field2> AND ... FROM THE TABLE <table_name1> AND <table_name2> WITH <join_type> <join_field>
+
+Supported Join Types:
+	-INNER: Inner join.
+	-LEFT: Left join.
+	-RIGHT: Right join.
+	-FULL: Full join.
+	
+Example:
+USE DATABASE employee_db FIND id AND name AND department FROM THE TABLE employees AND departments WITH INNER id
+
+
+3.Update Operations
+
+3.1 Update Field Value
+
+To update the value of a field in a table, use the following query:
+USE DATABASE <database_name> UPDATE <table_name> SET <field_name> TO <new_value> WHERE <condition>
+
+Example: 
+USE DATABASE employee_db UPDATE employees SET department TO 'Finance' WHERE id IS 1
+
+3.2 Change Table Name
+
+To change the name of a table, use the following query:
+USE DATABASE <database_name> UPDATE <table_name> CHANGE TABLE NAME TO <new_table_name>
+
+Example:
+USE DATABASE employee_db UPDATE employees CHANGE TABLE NAME TO staff
+
+3.3 Change Field Name
+
+To change the name of a field in a table, use the following query:
+USE DATABASE <database_name> UPDATE <table_name> CHANGE FIELD NAME <old_field_name> TO <new_field_name>
+
+Example:
+USE DATABASE employee_db UPDATE employees CHANGE FIELD NAME department TO dept
+
+4.Delete Operations
+
+4.1. Delete a database
+
+To delete a database, use the following query:
+DELETE DATABASE <database_name>
+
+Example:
+DELETE DATABASE employee_db
+
+4.2 Delete a table
+
+To delete a table within a database, use the following query:
+USE DATABASE <database_name> DELETE TABLE <table_name>
+
+Example:
+USE DATABASE employee_db DELETE TABLE employees
+
+4.3. Delete a field
+
+To delete a field from a table, use the following query:
+USE DATABASE <database_name> DELETE FIELD <field_name> IN TABLE <table_name>
+
+Example: 
+USE DATABASE employee_db DELETE FIELD department IN TABLE employees
+
+4.4 Delete a field within a list
+
+A list field is a field that contains a list of values. 
+To delete a field within a list in a table, use the following query:
+USE DATABASE <database_name> DELETE FIELD <field_name> WITHIN LIST <list_name> IN TABLE <table_name>
+
+Example:
+USE DATABASE employee_db DELETE FIELD role WITHIN LIST roles IN TABLE employees
+
+4.5 Delete a list field
+
+A list field is a field that contains a list of values. 
+To delete a list field from a table, use the following query:
+USE DATABASE <database_name> DELETE LIST FIELD <list_field_name> IN TABLE <table_name>
+
+Example:
+USE DATABASE employee_db DELETE LIST FIELD roles IN TABLE employees
+
+5. Alter Operations
+
+5.1 Add a Row to a JSON List
+
+A list field is a field that contains a list of values. 
+To add a row to a JSON list within a table, use the following query:
+USE DATABASE <database_name> ALTER <table_name> ADD ROW <row_data> TO LIST <list_name> WHERE <condition>
+
+Example:
+USE DATABASE employee_db ALTER employees ADD ROW [{"role": "Manager"}] TO LIST roles WHERE name IS 'John Doe'
+
+5.2 Create a Field with a Value
+
+To create a new field with a value in a table, use the following query:
+USE DATABASE <database_name> ALTER <table_name> CREATE FIELD <new_field_name> WITH VALUE <new_value> WHERE <condition>
+
+Example:
+USE DATABASE employee_db ALTER employees CREATE FIELD salary WITH VALUE 50000 WHERE id IS 1
+
+5.3 Create a Field with a List Name
+
+A list field is a field that contains a list of values. 
+To create a new field with a list name in a table, use the following query:
+USE DATABASE <database_name> ALTER <table_name> CREATE FIELD <new_field_name> WITH LIST NAME <list_name> WHERE <condition>
+
+Example:
+USE DATABASE employee_db ALTER employees CREATE FIELD roles WITH LIST NAME [{"role": "Manager"}] WHERE id IS 1
+
+6. Show Operations
+
+6.1 Show Table Content
+
+To show the content of a table, use the following query:
+USE DATABASE <database_name> SHOW TABLE <table_name>
+
+Example:
+USE DATABASE employee_db SHOW TABLE employees
+
+6.2 List All Databases
+
+To list all databases, use the following query:
+SHOW DATABASES
+
+
+
+
+
+
+
+
+
