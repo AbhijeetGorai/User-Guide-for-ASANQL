@@ -39,7 +39,7 @@ To apply filters to the records, use the WHERE clause:
 USE DATABASE <database_name> FIND <field1> AND <field2> AND ... FROM THE TABLE <table_name> WHERE <condition>
 
 Example:
-USE DATABASE employee_db FIND id AND name AND department FROM THE TABLE employees WHERE department IS 'HR'
+USE DATABASE employee_db FIND id AND name AND department FROM THE TABLE employees WHERE department WAS 'HR'
 
 2.3 Do aggregation operations
 
